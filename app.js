@@ -7,17 +7,25 @@ const cors = require('cors')
 
 var indexRouter = require('./routes/index');
 var dataRouter = require('./routes/data');
+var infoRouter = require('./routes/info');
 
 var app = express();
-
-const whitelist = ['http://localhost:8080','undefined','*']
+app.options('*', cors())
+const whitelist = [
+  //'http://localhost:8080',
+  //'http://localhost:80',
+  '*:*',
+  'undefined',
+  '*'
+]
 const corsOptions = {
   origin: function(origin, callback) {
     if (whitelist.indexOf(origin) !== -1) {
       callback(null, true)
       console.log('allowed ',origin);
     } else {
-      callback(new Error('Not allowed by CORS'))
+      callback(null, true)
+      //callback(new Error('Not allowed by CORS'))
       console.log('nt allowed ',origin);
       
     }
@@ -36,6 +44,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/', indexRouter);
 app.use('/data',cors(corsOptions), dataRouter);
+app.use('/info', infoRouter);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

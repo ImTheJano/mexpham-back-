@@ -1,19 +1,22 @@
+if (process.env.NODE_ENV !== 'production'){
+  require('dotenv').config();
+}
 var createError = require('http-errors');
 var express = require('express');
 var path = require('path');
 var cookieParser = require('cookie-parser');
 var logger = require('morgan');
 const cors = require('cors')
+require("./db");
 
 var indexRouter = require('./routes/index');
 var dataRouter = require('./routes/data');
 var infoRouter = require('./routes/info');
+var patients = require('./routes/patients');
 
 var app = express();
 app.options('*', cors())
 const whitelist = [
-  //'http://localhost:8080',
-  //'http://localhost:80',
   '*:*',
   'undefined',
   '*'
@@ -25,7 +28,6 @@ const corsOptions = {
       console.log('allowed ',origin);
     } else {
       callback(null, true)
-      //callback(new Error('Not allowed by CORS'))
       console.log('nt allowed ',origin);
       
     }
@@ -45,6 +47,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.use('/', indexRouter);
 app.use('/data',cors(corsOptions), dataRouter);
 app.use('/info', infoRouter);
+app.use('/patients',cors(corsOptions),patients);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
@@ -63,3 +66,6 @@ app.use(function(err, req, res, next) {
 });
 
 module.exports = app;
+
+
+

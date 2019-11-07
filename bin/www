@@ -87,4 +87,12 @@ function onListening() {
     ? 'pipe ' + addr
     : 'port ' + addr.port;
   debug('Listening on ' + bind);
+
+  var ip = require('ip');
+  const clc = require('cli-color');
+  console.log(clc.yellow("================================"));
+  console.log(clc.yellow("Listening on port:",addr.port));
+  console.log(clc.green("local connection: http://localhost:"+addr.port));
+  console.log(clc.blue("ip: ",ip.address()));
+  console.log(clc.yellow("================================"));
 }

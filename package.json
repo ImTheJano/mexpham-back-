@@ -4,15 +4,20 @@
   "private": true,
   "scripts": {
     "start": "node ./bin/www",
-    "DEBUG": "* & npm start"
+    "DEBUG": "* & npm start",
+    "dev": "nodemon ./bin/www"
   },
   "dependencies": {
+    "cli-color": "^2.0.0",
     "cookie-parser": "~1.4.4",
     "cors": "^2.8.5",
     "debug": "~2.6.9",
+    "dotenv": "^8.2.0",
     "express": "~4.16.1",
     "http-errors": "~1.6.3",
+    "http-status": "^1.4.0",
     "ip": "^1.1.5",
+    "mongoose": "^5.7.8",
     "morgan": "~1.9.1",
     "pug": "2.0.0-beta11"
   }

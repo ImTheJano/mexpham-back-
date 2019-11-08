@@ -12,7 +12,7 @@ require("./db");
 var indexRouter = require('./routes/index');
 var dataRouter = require('./routes/data');
 var infoRouter = require('./routes/info');
-var patients = require('./routes/patients');
+var patients = require('./routes/patient');
 
 var app = express();
 app.options('*', cors())

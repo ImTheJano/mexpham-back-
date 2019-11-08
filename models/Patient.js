@@ -1,10 +1,11 @@
 // Define schema
 const mongoose=require('mongoose');
+var uniqueValidator = require('mongoose-unique-validator');
 var Schema = mongoose.Schema;
 var PatientSchema = new Schema({
     claveMexpharm:String,
-	claveInst:String,
-	codigoVerificador:String,
+	claveInst:{ type: String, required: true, unique: true },
+	codigoVerificador:{ type: String, required: true, unique: true },
 	anyo:String,
 	mes:String,
 	dia:String,

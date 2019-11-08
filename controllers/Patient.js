@@ -3,7 +3,8 @@ const httpStatus = require('http-status')
 module.exports={
     get:async (req,res,next)=>{
         try {
-            const patients=await Patient.find(req.body);
+            filter=JSON.parse(req.params.find)
+            const patients=await Patient.find(filter);
             res.status(200).json(patients);
         } catch (error) {
             res.status(httpStatus.FORBIDDEN).json({error:"server error"});  
@@ -24,11 +25,13 @@ module.exports={
         }
     },
     update:async(req,res,next)=>{
-        try {
+        try {        
             const {id}=req.params;
             const newPatient=req.body;
-            await Patient.findByIdAndUpdate({_id:id},newPatient);
-            res.status(200).json({success:true});
+            console.log(newPatient);
+            
+            let patient=await Patient.findOneAndUpdate({codigoVerificador:id},newPatient,{new:true});
+            res.status(200).json({success:true,patient});
         } catch (error) {
             res.status("400").json({error});  
         }
@@ -36,7 +39,7 @@ module.exports={
     del:async(req,res,next)=>{
         try {
             const {id}=req.params;
-            await Patient.deleteOne({ _id: id });
+            await Patient.deleteOne({ codigoVerificador: id });
             res.status(200).json({success:true});
         } catch (error) {
             res.status("400").json({error});  

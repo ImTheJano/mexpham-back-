@@ -5,6 +5,7 @@ router.get('/:find',get);
 router.post('/',store);
 router.put('/:id',update);
 router.delete('/:id',del);
+router.get('post/:params',del);
 
 
 module.exports=router;

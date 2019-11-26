@@ -24,6 +24,22 @@ module.exports={
             res.status("400").json({error});  
         }
     },
+    storeBtGet: async(req,res,next)=>{
+        const {p}=req.params;
+        req.body=JSON.parse(p)
+        try {
+             const patient=new Patient(req.body);
+             await patient.save((error, datos)=> {
+                 if(error){
+                    res.status("400").json({error});
+                 }else{
+                    res.status("200").json(datos);
+                 }         
+             });
+        } catch (error) {
+            res.status("400").json({error});  
+        }
+    },
     update:async(req,res,next)=>{
         try {        
             const {id}=req.params;

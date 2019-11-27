@@ -17,6 +17,10 @@ var patients = require('./routes/patient');
 var app = express();
 app.options('*', cors())
 const whitelist = [
+  "http://localhost:8080",
+  "http://localhost:8080/*",
+  "http://localhost:5000",
+  "http://localhost:*",
   '*:*',
   'undefined',
   '*'
@@ -44,10 +48,13 @@ app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
-app.use('/', indexRouter);
+app.use('/',cors(corsOptions), indexRouter);
 app.use('/data',cors(corsOptions), dataRouter);
-app.use('/info', infoRouter);
+app.use('/info',cors(corsOptions), infoRouter);
 app.use('/patients',cors(corsOptions),patients);
+app.use('/testcnn',cors(corsOptions),function(req,res){
+  res.status(200).json({success:true})
+});
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

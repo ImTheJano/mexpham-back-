@@ -18,9 +18,7 @@ module.exports={
             const _patient=new Patient(req.body);
             await _patient.save((error, datos)=> {
                 if(error){
-                //    res.status("400").json({error});
-                   console.log(error);
-                   ;
+                res.status("400").json({error});
                 }else{
                    res.status("200").json(datos);
                 }         
@@ -31,22 +29,6 @@ module.exports={
        }
     },
     store: async(req,res,next)=>{
-        try {
-             const patient=new Patient(req.body);
-             await patient.save((error, datos)=> {
-                 if(error){
-                    res.status("400").json({error});
-                 }else{
-                    res.status("200").json(datos);
-                 }         
-             });
-        } catch (error) {
-            res.status("400").json({error});  
-        }
-    },
-    storeBtGet: async(req,res,next)=>{
-        const {p}=req.params;
-        req.body=JSON.parse(p)
         try {
              const patient=new Patient(req.body);
              await patient.save((error, datos)=> {
